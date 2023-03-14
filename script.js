@@ -127,7 +127,7 @@ const updateUI = function (account) {
   calcDisplaySummary(account);
 };
 
-// Event handler
+// Event handlers
 let currentAccount;
 
 btnLogin.addEventListener('click', function (event) {
@@ -177,6 +177,30 @@ btnTransfer.addEventListener('click', function (event) {
     // Updating the UI
     updateUI(currentAccount);
   }
+});
+
+btnClose.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+
+    // Remove welcome message
+    labelWelcome.textContent = '';
+  }
+
+  inputCloseUsername.value = inputClosePin.value = '';
 });
 
 /////////////////////////////////////////////////
